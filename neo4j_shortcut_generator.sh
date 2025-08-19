@@ -6,9 +6,8 @@ DOCUMENTS_PATH=$(xdg-user-dir DOCUMENTS)
 APPLICATION_PATH="${DOCUMENTS_PATH}/applications"
 
 # Image Variables
-CURRENT_IMAGE_FILE="neo4j_icon.jpg"
 IMAGE_PATH="${APPLICATION_PATH}/images"
-IMAGE_FILE="${IMAGE_PATH}/neo4j_icon.jpg"
+IMAGE_FILE="${IMAGE_PATH}/neo4j.svg"
 
 # AppImage File Variables
 APPIMAGE_FILE="${APPLICATION_PATH}/neo4j-desktop.AppImage"
@@ -36,17 +35,29 @@ download_neo4j_app_image () {
     fi
 }
 
+download_neo4j_logo() {
+    local url_neo4j_icon="https://logo.svgcdn.com/l/neo4j.svg"
+
+    sleep 3
+    cd "$IMAGE_PATH" && wget "$url_neo4j_icon"
+
+    if [[ ! $? -eq 0 ]]; then
+        echo "===> [ERROR] Could not find endpoint Neo4j Logo!!"
+        exit 1
+    fi
+}
+
 create_neo4j_shorcut () {
     echo "===> [INFO] Creating a shortcut..."
 
-    cat > "$DESKTOP_FILE" <<EOF
-        [Desktop Entry]
-        Name=Neo4j Desktop
-        Exec=$APPIMAGE_FILE
-        Icon=$IMAGE_FILE
-        Type=Application
-        Categories=Development;Database;
-        Terminal=false
+cat > "$DESKTOP_FILE" <<EOF
+[Desktop Entry]
+Name=Neo4j Desktop
+Exec=$APPIMAGE_FILE
+Icon=$IMAGE_FILE
+Type=Application
+Categories=Development;Database;
+Terminal=false
 EOF
 
     chmod +x "$DESKTOP_FILE"
@@ -54,22 +65,12 @@ EOF
     echo "===> [INFO] Neo4j Desktop Shortcut Created!!"
 }
 
-move_image () {
-    cp "$CURRENT_IMAGE_FILE" "$IMAGE_PATH"
-}
-
 main () {
     mkdir -p "$APPLICATION_PATH" "$IMAGE_PATH"
     download_neo4j_app_image
-    move_image
+    download_neo4j_logo
     create_neo4j_shorcut
     echo "===> [SUCCESS] Neo4j Desktop Shortcut Created and Configured!!"
 }
 
 main
-
-
-
-
-
-
