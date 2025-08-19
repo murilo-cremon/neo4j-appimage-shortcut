@@ -14,10 +14,9 @@ This script automates the process of downloading the latest Neo4j Desktop AppIma
 
 ## 🚀 How to Use
 
-1. **Clone this repository**:
-   ```bash
-   git clone https://github.com/your-username/neo4j-appimage-shortcut.git &&
-   cd neo4j-appimage-shortcut &&
-   chmod +x neo4j_shortcut_generator.sh &&
-   ./neo4j_shortcut_generator.sh
-```   
+1. **Clone this repository and run the commands below**:
+```bash
+git clone https://github.com/your-username/neo4j-appimage-shortcut.git &&
+cd neo4j-appimage-shortcut &&
+chmod +x neo4j_shortcut_generator.sh &&
+./neo4j_shortcut_generator.sh
